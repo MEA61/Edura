@@ -4,26 +4,38 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MEA.WebUI.Models;
+using Edura.WebUI.Models;
+using Edura.WebUI.Repository.Abstract;
+using Edura.WebUI.Entity;
 
-namespace MEA.WebUI.Controllers
+namespace Edura.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductRepository repository;
+        private IUnitOfWork unitOfWork;
+
+        public HomeController(IProductRepository _repository, IUnitOfWork _unitOfWork)
+        {
+            repository = _repository;
+            unitOfWork = _unitOfWork;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(unitOfWork.Products.GetAll().Where(i => i.IsApproved && i.IsHome).ToList());
         }
-
-        public IActionResult Privacy()
+        public IActionResult Details(int id)
         {
-            return View();
+            return View(repository.Get(id));
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Create()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var product = new Product() { ProductName="Yeni Ürün", Price=1000 };
+            unitOfWork.Products.Add(product);
+            unitOfWork.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

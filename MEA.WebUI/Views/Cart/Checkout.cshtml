@@ -1,0 +1,57 @@
+﻿@model OrderDetails
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<section id="content">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="padding25">
+                    <h4>Please enter the address</h4>
+                </div>
+                <div class="text-danger" asp-validation-summary="All"></div>
+
+                <form method="post">
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <input asp-for="AddressTitle" class="form-control input-lg" placeholder="AddressTitle">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input asp-for="Address" class="form-control input-lg" placeholder="Address">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input asp-for="City" class="form-control input-lg" placeholder="City">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input asp-for="District" class="form-control input-lg" placeholder="District">
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <input asp-for="Telephone" class="form-control input-lg" placeholder="Telephone">
+                        </div>
+
+                        <div class="form-group col-xs-12 text-left">
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-send fa-fw"></i>Complete the checkout</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-4">
+
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</section>
+
